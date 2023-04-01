@@ -1,57 +1,67 @@
-import { AppBar, Button, IconButton, Toolbar, Typography, useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Link } from 'react-router-dom';
-import React from 'react';
+import { AppBar, Button, Toolbar, Typography, useTheme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { NavLink } from "react-router-dom";
+import React from "react";
+import { colors } from "./util/colors";
+import "./fonts.css";
 
+// color palette: https://coolors.co/0b3954-bfd7ea-ff6663-e0ff4f-fefffe
 interface NavBarProps {
-    title: string;
+  title: string;
 }
 
 const useStyles = makeStyles(() => ({
-    root: {
-        flexGrow: 1,
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: useTheme().spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  link: {
+    color: colors.white,
+    textDecoration: "none",
+    marginRight: useTheme().spacing(1),
+    "&.active": {
+      color: colors.chartreusse,
+      fontWeight: "bold",
     },
-    menuButton: {
-        marginRight: useTheme().spacing(2),
+    "&:hover": {
+      color: colors.bittersweet,
     },
-    title: {
-        flexGrow: 1,
-    },
-    link: {
-        color: 'white',
-        textDecoration: 'none',
-        marginRight: useTheme().spacing(1),
-      },
+  },
 }));
 
 const NavBar: React.FC<NavBarProps> = ({ title }) => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return(
-        <div className={classes.root}>
-            <AppBar position="static" style={{ background: '#2E3B55' }}>
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        {title}
-                    </Typography>
-                    <Link to="/" className={classes.link}>
-                        <Button color="inherit">
-                            <Typography variant="button">
-                                Home
-                            </Typography>
-                        </Button>
-                    </Link>
-                    <Link to="/about" className={classes.link}>
-                        <Button color="inherit">
-                            <Typography variant="button">
-                                About
-                            </Typography>
-                        </Button>
-                    </Link>
-                </Toolbar>
-            </AppBar>
-        </div>
-    )
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" style={{ background: "#0B3954" }}>
+        <Toolbar>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            style={{ fontFamily: "Fasthand-Regular" }}
+          >
+            {title}
+          </Typography>
+          <NavLink to="/" className={classes.link}>
+            <Button color="inherit">
+              <Typography variant="button">Home</Typography>
+            </Button>
+          </NavLink>
+          <NavLink to="/about" className={classes.link}>
+            <Button color="inherit">
+              <Typography variant="button">About</Typography>
+            </Button>
+          </NavLink>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 
 export default NavBar;
